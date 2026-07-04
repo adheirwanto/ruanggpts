@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RUANG GPTs by Dhe_irwans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#030712',
+                            panel: '#0b0f19',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            red: '#ef4444',
+                            border: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght=400;700;900&family=Share+Tech+Mono&display=swap');
+        .font-transformer { font-family: 'Orbitron', sans-serif; letter-spacing: 0.1em; }
+        .font-tech { font-family: 'Share Tech Mono', monospace; }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.02) 1px, transparent 1px);
+        }
+        .glow-cyan { box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); }
+        .mecha-panel { clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px)); }
+        .mecha-btn { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+    </style>
+</head>
+<body class="bg-cyber-dark text-slate-300 font-sans antialiased cyber-grid">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-40 top-0 bg-cyber-dark/90 backdrop-blur-md border-b border-cyber-cyan/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <img src="1000399418.png" alt="Ruang GPTs" class="h-10 md:h-12 object-contain">
+            <button onclick="logout()" id="btnNavLogout" class="hidden mecha-btn bg-cyber-red/20 hover:bg-cyber-red/40 text-cyber-red px-5 py-2 border border-cyber-red/30 font-tech text-xs tracking-widest uppercase transition-colors">
+                // DISCONNECT_
+            </button>
+        </div>
+    </nav>
+
+    <!-- HALAMAN DEPAN (INPUT EMAIL) -->
+    <main id="landingPage" class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center px-4">
+        <div class="w-full max-w-md flex flex-col items-center text-center">
+            <img src="1000400317.png" alt="Ruang GPTs 3D" class="w-56 h-56 md:w-72 md:h-72 object-contain mb-6 animate-pulse" style="animation-duration: 4s;">
+            
+            <div id="loginConsole" class="w-full bg-cyber-panel/80 border border-cyber-cyan/30 p-6 mecha-panel glow-cyan font-tech transition-all duration-300">
+                <div class="text-[10px] text-cyber-cyan tracking-widest uppercase mb-4 text-left">// INITIATE_ACCESS_PROTOCOL_</div>
+                
+                <div class="space-y-4">
+                    <input type="email" id="inputEmail" placeholder="masukkan email anda..." 
+                           autocapitalize="none" autocorrect="off" spellcheck="false"
+                           oninput="handleEmailInput(this)" onfocus="handleInputFocus()"
+                           class="w-full bg-cyber-dark border border-cyber-border px-4 py-3.5 text-white focus:outline-none focus:border-cyber-cyan text-sm tracking-wide lowercase placeholder-slate-600">
+                    
+                    <button onclick="prosesLogin()" id="btnLogin" class="mecha-btn w-full bg-cyber-cyan text-black font-transformer font-black py-3.5 text-xs tracking-widest hover:bg-white transition-all duration-200">
+                        ACCESS MEMBER AREA
+                    </button>
+                    
+                    <p id="errorMessage" class="text-xs text-cyber-red font-bold hidden bg-cyber-red/10 py-2 border border-cyber-red/20 uppercase tracking-wider text-center"></p>
+                </div>
+            </div>
+            <p class="font-tech text-[10px] text-slate-600 tracking-widest uppercase mt-6">SECURED_SYSTEM // BY DHE_IRWANS</p>
+        </div>
+    </main>
+
+    <!-- MEMBER AREA (COMMAND CENTER) -->
+    <main id="memberArea" class="hidden min-h-screen pt-32 pb-20 max-w-6xl mx-auto px-4">
+        <div class="bg-cyber-panel border border-cyber-cyan/20 p-6 md:p-8 mecha-panel shadow-[0_0_40px_rgba(3,7,18,0.8)]">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-cyber-border pb-6 mb-8 gap-4 font-tech">
+                <div>
+                    <span class="text-xs font-bold text-cyber-amber uppercase tracking-widest bg-cyber-amber/10 px-3 py-1 border border-cyber-amber/20">// SECURE_FEED_ACTIVE_</span>
+                    <h2 class="font-transformer font-bold text-2xl text-white mt-3">COMMAND CENTER</h2>
+                </div>
+                <div class="text-xs bg-cyber-dark px-4 py-2.5 border border-cyber-border text-slate-400">
+                    OPERATOR: <span id="userEmailDisplay" class="text-cyber-cyan font-bold"></span>
+                </div>
+            </div>
+
+            <!-- Loader Transmisi Data -->
+            <div id="materiLoader" class="text-center py-12 font-tech text-cyber-cyan animate-pulse">// FETCHING DATA FROM SHEET MAINFRAME...</div>
+
+            <!-- Konten Grid Utama -->
+            <div id="materiGrid" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Sektor Kiri -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-cyber-dark/50 p-6 border border-cyber-border relative">
+                        <span class="absolute top-0 right-0 px-2 py-0.5 text-[8px] font-tech bg-cyber-cyan/10 text-cyber-cyan border-l border-b border-cyber-border">MOD_01</span>
+                        <h3 class="font-transformer font-bold text-sm text-white mb-3 tracking-wider">🤖 CUSTOM GPTs ENGINE</h3>
+                        <p class="font-tech text-xs text-slate-400 mb-6 leading-relaxed">Klik tombol di bawah untuk meluncurkan sistem kecerdasan terenkripsi pembuatan prompt storyboard secara otomatis.</p>
+                        <a id="gptsLinkTag" href="#" target="_blank" class="mecha-btn block text-center bg-transparent hover:bg-cyber-cyan text-cyber-cyan hover:text-black font-transformer font-black py-3 border border-cyber-cyan text-xs tracking-widest transition-all duration-200">
+                            LAUNCH SYSTEM LINK ↗
+                        </a>
+                    </div>
+                    
+                    <div class="bg-cyber-dark/50 p-6 border border-cyber-border font-tech text-xs text-slate-400">
+                        <span class="text-cyber-amber font-bold">// INTISARI METODE:</span>
+                        <p id="penjelasanTag" class="mt-2 leading-relaxed whitespace-pre-line"></p>
+                    </div>
+                </div>
+
+                <!-- Sektor Kanan -->
+                <div class="lg:col-span-7 bg-cyber-dark/50 p-6 border border-cyber-border flex flex-col gap-4 relative">
+                    <span class="absolute top-0 right-0 px-2 py-0.5 text-[8px] font-tech bg-purple-500/10 text-purple-400 border-l border-b border-cyber-border">MONITOR_FEED</span>
+                    <h3 class="font-transformer font-bold text-sm text-white tracking-wider">🎬 TUTORIAL MAINFRAME</h3>
+                    
+                    <div class="relative w-full aspect-video border border-cyber-cyan/20 bg-black">
+                        <iframe id="videoIframeTag" class="absolute top-0 left-0 w-full h-full opacity-90" src="" title="Tutorial AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- DATABASE CONFIGURATION SCRIPT -->
+    <script>
+        // Whitelist Email terhubung ke GitHub Raw kamu
+        const EMAIL_DB_URL = "https://raw.githubusercontent.com/adheirwanto/members.json/refs/heads/main/members.json";
+        
+        // Sudah Otomatis Terkunci ke Link Google Sheets milikmu
+        const SPREADSHEET_ID = "1CDchBGMnwRQZVhlnT552kedEBd2qaXMQaTKpIZ1AT6M";
+        const GOOGLE_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json`;
+
+        function handleEmailInput(element) { element.value = element.value.toLowerCase(); }
+        function handleInputFocus() {
+            setTimeout(() => { document.getElementById('loginConsole').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+        }
+
+        function checkLoginStatus() {
+            const savedEmail = localStorage.getItem('cybernetic_auth_token');
+            if (savedEmail) {
+                document.getElementById('landingPage').classList.add('hidden');
+                document.getElementById('memberArea').classList.remove('hidden');
+                document.getElementById('btnNavLogout').classList.remove('hidden');
+                document.getElementById('userEmailDisplay').innerText = savedEmail.toLowerCase();
+                loadMateriFromSheets();
+            } else {
+                document.getElementById('landingPage').classList.remove('hidden');
+                document.getElementById('memberArea').classList.add('hidden');
+                document.getElementById('btnNavLogout').classList.add('hidden');
+            }
+        }
+
+        async function prosesLogin() {
+            const emailInput = document.getElementById('inputEmail').value.trim().toLowerCase();
+            const errMsg = document.getElementById('errorMessage');
+            const btn = document.getElementById('btnLogin');
+
+            if (!emailInput) return;
+            btn.innerText = "AUTHENTICATING...";
+            btn.disabled = true;
+            errMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch(EMAIL_DB_URL);
+                if (!response.ok) throw new Error();
+                const emailBerlisensi = await response.json();
+                const cleanEmails = emailBerlisensi.map(email => email.trim().toLowerCase());
+
+                if (Array.isArray(cleanEmails) && cleanEmails.includes(emailInput)) {
+                    localStorage.setItem('cybernetic_auth_token', emailInput);
+                    checkLoginStatus();
+                } else {
+                    errMsg.innerText = "⚠️ ACCESS DENIED: EMAIL NOT REGISTERED.";
+                    errMsg.classList.remove('hidden');
+                    handleInputFocus();
+                }
+            } catch (e) {
+                errMsg.innerText = "⚠️ SYSTEM ERROR: RECONNECTING TO DATABASE FAILED.";
+                errMsg.classList.remove('hidden');
+            } finally {
+                btn.innerText = "ACCESS MEMBER AREA";
+                btn.disabled = false;
+            }
+        }
+
+        async function loadMateriFromSheets() {
+            const loader = document.getElementById('materiLoader');
+            const grid = document.getElementById('materiGrid');
+            
+            try {
+                const res = await fetch(GOOGLE_SHEET_URL);
+                const text = await res.text();
+                
+                const jsonData = JSON.parse(text.substring(47, text.length - 2));
+                const rowData = jsonData.table.rows[0].c; 
+
+                const linkGpts = rowData[0] ? rowData[0].v : '#';
+                const linkVideo = rowData[1] ? rowData[1].v : '';
+                const penjelasan = rowData[2] ? rowData[2].v : 'Belum ada penjelasan.';
+
+                document.getElementById('gptsLinkTag').href = linkGpts;
+                document.getElementById('videoIframeTag').src = linkVideo;
+                document.getElementById('penjelasanTag').innerText = penjelasan;
+
+                loader.classList.add('hidden');
+                grid.classList.remove('hidden');
+            } catch (error) {
+                console.error(error);
+                loader.innerText = "⚠️ TRANSMISSION ERROR: FAILED TO PARSE COMMAND CENTER DATA.";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('cybernetic_auth_token');
+            checkLoginStatus();
+        }
+
+        window.onload = checkLoginStatus;
+    </script>
+</body>
+</html>
