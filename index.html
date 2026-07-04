@@ -196,15 +196,18 @@
                 const text = await res.text();
                 
                 const jsonData = JSON.parse(text.substring(47, text.length - 2));
-                const rowData = jsonData.table.rows[0].c; 
+                const rows = jsonData.table.rows;
 
-                const linkGpts = rowData[0] ? rowData[0].v : '#';
-                const linkVideo = rowData[1] ? rowData[1].v : '';
-                const penjelasan = rowData[2] ? rowData[2].v : 'Belum ada penjelasan.';
+                if (rows.length > 0) {
+                    const rowData = rows[0].c; 
+                    const linkGpts = rowData[0] ? rowData[0].v : '#';
+                    const linkVideo = rowData[1] ? rowData[1].v : '';
+                    const penjelasan = rowData[2] ? rowData[2].v : 'Belum ada penjelasan.';
 
-                document.getElementById('gptsLinkTag').href = linkGpts;
-                document.getElementById('videoIframeTag').src = linkVideo;
-                document.getElementById('penjelasanTag').innerText = penjelasan;
+                    document.getElementById('gptsLinkTag').href = linkGpts;
+                    document.getElementById('videoIframeTag').src = linkVideo;
+                    document.getElementById('penjelasanTag').innerText = penjelasan;
+                }
 
                 loader.classList.add('hidden');
                 grid.classList.remove('hidden');
