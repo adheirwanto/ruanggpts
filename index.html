@@ -5,85 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RUANG GPTs by Dhe_irwans</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
                     colors: {
-                        cyber: {
-                            dark: '#030712',
-                            panel: '#0b0f19',
-                            cyan: '#06b6d4',
-                            amber: '#f59e0b',
-                            red: '#ef4444',
-                            border: '#1e293b'
+                        brand: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
                         }
                     }
                 }
             }
         }
     </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght=400;700;900&family=Share+Tech+Mono&display=swap');
-        .font-transformer { font-family: 'Orbitron', sans-serif; letter-spacing: 0.1em; }
-        .font-tech { font-family: 'Share Tech Mono', monospace; }
-        .cyber-grid {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(6, 182, 212, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(6, 182, 212, 0.02) 1px, transparent 1px);
-        }
-        .glow-cyan { box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); }
-        .mecha-panel { clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px)); }
-        .mecha-btn { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
-    </style>
 </head>
-<body class="bg-cyber-dark text-slate-300 font-sans antialiased cyber-grid">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
     <!-- NAVBAR -->
-    <nav class="fixed w-full z-40 top-0 bg-cyber-dark/90 backdrop-blur-md border-b border-cyber-cyan/10">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-center">
-            <img src="1000399418.png" alt="Ruang GPTs" class="h-10 md:h-12 object-contain">
+    <nav class="fixed w-full z-40 top-0 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-center">
+            <img src="1000399418.png" alt="Ruang GPTs" class="h-8 md:h-10 object-contain opacity-90">
         </div>
     </nav>
 
-    <!-- HALAMAN DEPAN ONLY (CLEAN & MINIMALIS) -->
+    <!-- MAIN CONTENT -->
     <main class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center px-4">
         <div class="w-full max-w-md flex flex-col items-center text-center">
-            <img src="1000400317.png" alt="Ruang GPTs 3D" class="w-56 h-56 md:w-72 md:h-72 object-contain mb-6 animate-pulse" style="animation-duration: 4s;">
             
-            <div id="loginConsole" class="w-full bg-cyber-panel/80 border border-cyber-cyan/30 p-6 mecha-panel glow-cyan font-tech transition-all duration-300">
-                <div class="text-[10px] text-cyber-cyan tracking-widest uppercase mb-4 text-left">// INITIATE_ACCESS_PROTOCOL_</div>
+            <!-- Logo / Image Illustration -->
+            <div class="mb-8 p-4 bg-white rounded-3xl shadow-sm border border-slate-100">
+                <img src="1000400317.png" alt="Ruang GPTs 3D" class="w-40 h-40 md:w-48 md:h-48 object-contain">
+            </div>
+            
+            <!-- Login Card -->
+            <div id="loginConsole" class="w-full bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 transition-all duration-300">
+                
+                <h1 class="text-xl font-bold text-slate-800 mb-2">Selamat Datang</h1>
+                <p class="text-sm text-slate-500 mb-6">Masukkan email yang terdaftar untuk mengakses materi.</p>
                 
                 <div class="space-y-4">
-                    <input type="email" id="inputEmail" placeholder="masukkan email anda..." 
-                           autocapitalize="none" autocorrect="off" spellcheck="false"
-                           oninput="handleEmailInput(this)" onfocus="handleInputFocus()"
-                           class="w-full bg-cyber-dark border border-slate-800 px-4 py-3.5 text-white focus:outline-none focus:border-cyber-cyan text-sm tracking-wide lowercase placeholder-slate-600">
+                    <div>
+                        <input type="email" id="inputEmail" placeholder="nama@email.com" 
+                               autocapitalize="none" autocorrect="off" spellcheck="false"
+                               oninput="handleEmailInput(this)" onfocus="handleInputFocus()"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all placeholder-slate-400">
+                    </div>
                     
-                    <button onclick="prosesLogin()" id="btnLogin" class="mecha-btn w-full bg-cyber-cyan text-black font-transformer font-black py-3.5 text-xs tracking-widest hover:bg-white transition-all duration-200">
-                        ACCESS MEMBER AREA
+                    <button onclick="prosesLogin()" id="btnLogin" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                        Akses Member Area
                     </button>
                     
-                    <p id="errorMessage" class="text-xs text-cyber-red font-bold hidden bg-cyber-red/10 py-2 border border-cyber-red/20 uppercase tracking-wider text-center"></p>
+                    <div id="errorMessage" class="hidden bg-red-50 text-red-600 border border-red-100 rounded-xl py-3 px-4 text-sm font-medium text-center transition-all">
+                    </div>
                 </div>
             </div>
-            <p class="font-tech text-[10px] text-slate-600 tracking-widest uppercase mt-6">SECURED_SYSTEM // BY DHE_IRWANS</p>
+
+            <!-- Footer -->
+            <p class="text-xs text-slate-400 mt-8 font-medium">
+                &copy; 2026 Ruang GPTs. By Dhe_irwans
+            </p>
         </div>
     </main>
 
     <!-- DATABASE CONFIGURATION SCRIPT -->
     <script>
-        // Mengambil whitelist email tetap dari link GitHub Raw kamu
         const EMAIL_DB_URL = "https://raw.githubusercontent.com/adheirwanto/members.json/refs/heads/main/members.json";
-        
-        // Link Google Docs Materi milikmu
         const GOOGLE_DOCS_URL = "https://docs.google.com/document/d/1hMjTH7fr2Q6uhxh9mPBlWhcECNqajvaa7dgtBUZH3GU/edit?usp=drivesdk";
 
-        function handleEmailInput(element) { element.value = element.value.toLowerCase(); }
+        function handleEmailInput(element) { 
+            element.value = element.value.toLowerCase(); 
+        }
         
         function handleInputFocus() {
-            setTimeout(() => { document.getElementById('loginConsole').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+            setTimeout(() => { 
+                document.getElementById('loginConsole').scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+            }, 300);
         }
 
         async function prosesLogin() {
@@ -91,9 +93,15 @@
             const errMsg = document.getElementById('errorMessage');
             const btn = document.getElementById('btnLogin');
 
-            if (!emailInput) return;
-            btn.innerText = "AUTHENTICATING...";
+            if (!emailInput) {
+                showError("Silakan masukkan email Anda.");
+                return;
+            }
+
+            // Loading state
+            btn.innerText = "Memeriksa data...";
             btn.disabled = true;
+            btn.className = "w-full bg-slate-400 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 cursor-not-allowed";
             errMsg.classList.add('hidden');
 
             try {
@@ -103,29 +111,36 @@
                 const cleanEmails = emailBerlisensi.map(email => email.trim().toLowerCase());
 
                 if (Array.isArray(cleanEmails) && cleanEmails.includes(emailInput)) {
-                    btn.innerText = "ACCESS GRANTED! REDIRECTING...";
-                    btn.className = "mecha-btn w-full bg-emerald-500 text-black font-transformer font-black py-3.5 text-xs tracking-widest";
+                    // Success state
+                    btn.innerText = "Akses Diberikan! Mengalihkan...";
+                    btn.className = "w-full bg-emerald-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm shadow-md transition-all";
                     
-                    // Eksekusi pemindahan halaman otomatis setelah sukses login
                     setTimeout(() => {
                         window.location.href = GOOGLE_DOCS_URL;
                     }, 800);
                 } else {
-                    errMsg.innerText = "⚠️ ACCESS DENIED: EMAIL NOT REGISTERED.";
-                    errMsg.classList.remove('hidden');
+                    // Fail state
+                    showError("Akses ditolak: Email tidak terdaftar.");
                     handleInputFocus();
                     resetButton(btn);
                 }
             } catch (e) {
-                errMsg.innerText = "⚠️ SYSTEM ERROR: RECONNECTING TO DATABASE FAILED.";
-                errMsg.classList.remove('hidden');
+                // Error state
+                showError("Terjadi kesalahan sistem. Coba lagi nanti.");
                 resetButton(btn);
             }
         }
 
+        function showError(message) {
+            const errMsg = document.getElementById('errorMessage');
+            errMsg.innerText = message;
+            errMsg.classList.remove('hidden');
+        }
+
         function resetButton(btn) {
-            btn.innerText = "ACCESS MEMBER AREA";
+            btn.innerText = "Akses Member Area";
             btn.disabled = false;
+            btn.className = "w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2";
         }
     </script>
 </body>
