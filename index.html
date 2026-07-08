@@ -10,59 +10,55 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                        }
+                        brand: { 500: '#3b82f6', 600: '#2563eb' }
                     }
                 }
             }
         }
     </script>
+    <style>
+        .modern-grid {
+            background-color: #f8fafc;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="modern-grid text-slate-800 font-sans antialiased">
 
     <!-- NAVBAR -->
     <nav class="fixed w-full z-40 top-0 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-center">
-            <img src="1000399418.png" alt="Ruang GPTs" class="h-8 md:h-10 object-contain opacity-90">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-start">
+            <img src="1000098371.png" alt="Ruang GPTs" class="h-10 md:h-12 object-contain">
         </div>
     </nav>
 
     <!-- MAIN CONTENT -->
-    <main class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center px-4">
-        <div class="w-full max-w-md flex flex-col items-center text-center">
-            
-            <!-- Logo / Image Illustration -->
-            <div class="mb-8 p-4 bg-white rounded-3xl shadow-sm border border-slate-100">
-                <img src="1000400317.png" alt="Ruang GPTs 3D" class="w-40 h-40 md:w-48 md:h-48 object-contain">
-            </div>
+    <main class="min-h-screen pt-28 pb-12 flex flex-col items-center justify-center px-4">
+        
+        <div class="w-full max-w-sm flex flex-col items-center">
             
             <!-- Login Card -->
-            <div id="loginConsole" class="w-full bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 transition-all duration-300">
+            <div id="loginConsole" class="w-full bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 transition-all duration-300">
                 
                 <h1 class="text-xl font-bold text-slate-800 mb-2">Selamat Datang</h1>
-                <p class="text-sm text-slate-500 mb-6">Masukkan email yang terdaftar untuk mengakses materi.</p>
+                <p class="text-sm text-slate-500 mb-6">Masukkan email terdaftar untuk akses materi.</p>
                 
                 <div class="space-y-4">
-                    <div>
-                        <input type="email" id="inputEmail" placeholder="nama@email.com" 
-                               autocapitalize="none" autocorrect="off" spellcheck="false"
-                               oninput="handleEmailInput(this)" onfocus="handleInputFocus()"
-                               class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all placeholder-slate-400">
-                    </div>
+                    <input type="email" id="inputEmail" placeholder="nama@email.com" 
+                           autocapitalize="none" autocorrect="off" spellcheck="false"
+                           oninput="handleEmailInput(this)" onfocus="handleInputFocus()"
+                           class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all">
                     
-                    <button onclick="prosesLogin()" id="btnLogin" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">
+                    <button onclick="prosesLogin()" id="btnLogin" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 rounded-xl text-sm transition-colors shadow-sm">
                         Akses Member Area
                     </button>
                     
-                    <div id="errorMessage" class="hidden bg-red-50 text-red-600 border border-red-100 rounded-xl py-3 px-4 text-sm font-medium text-center transition-all">
-                    </div>
+                    <div id="errorMessage" class="hidden bg-red-50 text-red-600 border border-red-100 rounded-xl py-3 px-4 text-sm font-medium text-center"></div>
                 </div>
             </div>
 
@@ -73,19 +69,13 @@
         </div>
     </main>
 
-    <!-- DATABASE CONFIGURATION SCRIPT -->
     <script>
         const EMAIL_DB_URL = "https://raw.githubusercontent.com/adheirwanto/members.json/refs/heads/main/members.json";
         const GOOGLE_DOCS_URL = "https://docs.google.com/document/d/1hMjTH7fr2Q6uhxh9mPBlWhcECNqajvaa7dgtBUZH3GU/edit?usp=drivesdk";
 
-        function handleEmailInput(element) { 
-            element.value = element.value.toLowerCase(); 
-        }
-        
+        function handleEmailInput(e) { e.value = e.value.toLowerCase(); }
         function handleInputFocus() {
-            setTimeout(() => { 
-                document.getElementById('loginConsole').scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            }, 300);
+            setTimeout(() => { document.getElementById('loginConsole').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
         }
 
         async function prosesLogin() {
@@ -93,54 +83,40 @@
             const errMsg = document.getElementById('errorMessage');
             const btn = document.getElementById('btnLogin');
 
-            if (!emailInput) {
-                showError("Silakan masukkan email Anda.");
-                return;
-            }
+            if (!emailInput) { showError("Silakan masukkan email Anda."); return; }
 
-            // Loading state
-            btn.innerText = "Memeriksa data...";
+            btn.innerText = "Memeriksa...";
             btn.disabled = true;
-            btn.className = "w-full bg-slate-400 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 cursor-not-allowed";
             errMsg.classList.add('hidden');
 
             try {
                 const response = await fetch(EMAIL_DB_URL);
-                if (!response.ok) throw new Error();
                 const emailBerlisensi = await response.json();
-                const cleanEmails = emailBerlisensi.map(email => email.trim().toLowerCase());
-
-                if (Array.isArray(cleanEmails) && cleanEmails.includes(emailInput)) {
-                    // Success state
-                    btn.innerText = "Akses Diberikan! Mengalihkan...";
-                    btn.className = "w-full bg-emerald-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm shadow-md transition-all";
-                    
-                    setTimeout(() => {
-                        window.location.href = GOOGLE_DOCS_URL;
-                    }, 800);
+                
+                if (emailBerlisensi.map(e => e.trim().toLowerCase()).includes(emailInput)) {
+                    btn.innerText = "Berhasil! Mengalihkan...";
+                    btn.className = "w-full bg-emerald-500 text-white font-semibold py-3.5 rounded-xl text-sm";
+                    setTimeout(() => { window.location.href = GOOGLE_DOCS_URL; }, 800);
                 } else {
-                    // Fail state
                     showError("Akses ditolak: Email tidak terdaftar.");
-                    handleInputFocus();
                     resetButton(btn);
                 }
             } catch (e) {
-                // Error state
-                showError("Terjadi kesalahan sistem. Coba lagi nanti.");
+                showError("Gagal terhubung ke database.");
                 resetButton(btn);
             }
         }
 
-        function showError(message) {
+        function showError(msg) {
             const errMsg = document.getElementById('errorMessage');
-            errMsg.innerText = message;
+            errMsg.innerText = msg;
             errMsg.classList.remove('hidden');
         }
 
         function resetButton(btn) {
             btn.innerText = "Akses Member Area";
             btn.disabled = false;
-            btn.className = "w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 px-4 rounded-xl text-sm transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2";
+            btn.className = "w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3.5 rounded-xl text-sm transition-colors shadow-sm";
         }
     </script>
 </body>
